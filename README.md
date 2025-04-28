@@ -126,7 +126,8 @@ docker compose up -d
 ---
 
 
-# 📈 Testes de Performance
+# 🧪 Testes de Carga
+Os testes de estresse e carga realizados com **Apache JMeter** e os resultados estão logo à baixo.
 
 ## 🚀 Criação de Lançamentos
 
