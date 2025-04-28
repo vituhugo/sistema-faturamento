@@ -10,4 +10,5 @@ export default registerAs('database', () => ({
     port: Number(process.env.DB_PORT) || 5432,
     synchronize: true,
     autoLoadEntities: true,
+    logging: true,
 } as TypeOrmModuleOptions));

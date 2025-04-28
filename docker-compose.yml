@@ -1,5 +1,6 @@
 include:
   - .environment/database/docker-compose.yml
+  - .environment/observability/docker-compose.yml
   - .environment/gateway/docker-compose.yml
 services:
   entry-api:
@@ -8,8 +9,6 @@ services:
       dockerfile: ./apps/entry-api/Dockerfile
     env_file:
       - ./.env
-    ports:
-      - '3000:3000'
     depends_on:
       - pg_entry_primary
     deploy:
@@ -22,19 +21,17 @@ services:
       context: ./apps/web-app
     env_file:
       - ./.env
-    ports:
-      - '8080:80'
     deploy:
       resources:
         limits:
           cpus: '1.00'
           memory: 50M
+    ports:
+      - "3000:80"
   consolidation-api:
     build:
       context: ./
       dockerfile: ./apps/consolidation-api/Dockerfile
-    ports:
-      - '3001:3000'
     env_file:
       - ./.env
     depends_on:

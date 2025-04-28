@@ -1,0 +1,404 @@
+openapi: 3.0.0
+info:
+  title: Sistema Faturamento
+  version: 1.0.0
+  description: ''
+servers:
+  - url: '{{API_URL}}'
+  - url: localhost
+paths:
+  /entry:
+    parameters: []
+    get:
+      summary: Entry List
+      parameters:
+        - name: page
+          in: query
+          required: false
+          example: '2'
+          schema:
+            type: integer
+        - name: perPage
+          in: query
+          required: false
+          example: '30'
+          schema:
+            type: integer
+        - name: filters[type]
+          in: query
+          required: false
+          example: credit
+          schema:
+            type: string
+        - name: filters[date]
+          in: query
+          required: false
+          example: '2024-04-22T03:00:00.000Z'
+          schema:
+            type: integer
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+              example: '2585'
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+              example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: '*'
+            ETag:
+              schema:
+                type: string
+              example: W/"a19-kMgZdcNp2P3G4hSJXGaEI9+/RFM"
+            Date:
+              schema:
+                type: string
+              example: Mon, 28 Apr 2025 17:59:02 GMT
+            Server:
+              schema:
+                type: string
+              example: kong/3.9.0
+            X-Kong-Upstream-Latency:
+              schema:
+                type: integer
+              example: '97'
+            X-Kong-Proxy-Latency:
+              schema:
+                type: integer
+              example: '0'
+            Via:
+              schema:
+                type: integer
+              example: 1.1 kong/3.9.0
+            X-Kong-Request-Id:
+              schema:
+                type: string
+              example: a005d262969ce851d18b5e5750179c45
+          description: 200 - Entry List
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        amount:
+                          type: integer
+                        type:
+                          type: string
+                        date:
+                          type: string
+                          format: date-time
+                        description:
+                          type: string
+                  metadata:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      perPage:
+                        type: integer
+                      total:
+                        type: integer
+                      lastPage:
+                        type: integer
+                      filter:
+                        type: object
+                        properties:
+                          date(Between):
+                            type: object
+                            properties:
+                              _type:
+                                type: string
+                              _value:
+                                type: array
+                                items:
+                                  type: string
+                                  format: date-time
+                              _useParameter:
+                                type: boolean
+                              _multipleParameters:
+                                type: boolean
+    post:
+      summary: Entry Create
+      parameters: []
+      responses:
+        '201':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+              example: '119'
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+              example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: '*'
+            ETag:
+              schema:
+                type: string
+              example: W/"77-nIfkuyNuuYXPteZhwdLjP97wwjY"
+            Date:
+              schema:
+                type: string
+              example: Mon, 28 Apr 2025 17:59:23 GMT
+            Server:
+              schema:
+                type: string
+              example: kong/3.9.0
+            X-Kong-Upstream-Latency:
+              schema:
+                type: integer
+              example: '32'
+            X-Kong-Proxy-Latency:
+              schema:
+                type: integer
+              example: '0'
+            Via:
+              schema:
+                type: integer
+              example: 1.1 kong/3.9.0
+            X-Kong-Request-Id:
+              schema:
+                type: string
+              example: cbbc9a7b07409641d9ca7e794c122d6b
+          description: 200 - Entry Create
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  amount:
+                    type: integer
+                  description:
+                    type: string
+                  date:
+                    type: string
+                    format: date-time
+                  id:
+                    type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                amount:
+                  type: integer
+                description:
+                  type: string
+  /consolidation:
+    parameters: []
+    post:
+      summary: Create Consolidation
+      parameters: []
+      responses:
+        '201':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+              example: '171'
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+              example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: '*'
+            ETag:
+              schema:
+                type: string
+              example: W/"ab-m8QylyN2ez1oSbqPVSBny+wCE+o"
+            Date:
+              schema:
+                type: string
+              example: Mon, 28 Apr 2025 17:35:37 GMT
+            Server:
+              schema:
+                type: string
+              example: kong/3.9.0
+            X-Kong-Upstream-Latency:
+              schema:
+                type: integer
+              example: '12589'
+            X-Kong-Proxy-Latency:
+              schema:
+                type: integer
+              example: '4006'
+            Via:
+              schema:
+                type: integer
+              example: 1.1 kong/3.9.0
+            X-Kong-Request-Id:
+              schema:
+                type: integer
+              example: 38609329a321b43cb8b2987c9fc79a3b
+          description: 200 -Create Consolidation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalAmount:
+                    type: integer
+                  numberOfRecords:
+                    type: integer
+                  periodEnd:
+                    type: string
+                    format: date-time
+                  periodStart:
+                    type: string
+                    format: date-time
+                  startsAtId:
+                    type: integer
+                  endsAtId:
+                    type: integer
+                  id:
+                    type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                startPeriod:
+                  type: string
+                  format: date-time
+                endPeriod:
+                  type: string
+                  format: date-time
+    get:
+      summary: List Consolidations
+      parameters: []
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+              example: '241'
+            Connection:
+              schema:
+                type: string
+              example: keep-alive
+            X-Powered-By:
+              schema:
+                type: string
+              example: Express
+            Access-Control-Allow-Origin:
+              schema:
+                type: string
+              example: '*'
+            ETag:
+              schema:
+                type: string
+              example: W/"f1-DNyadXNBeyNXP/D5McAGOaIKfxw"
+            Date:
+              schema:
+                type: string
+              example: Mon, 28 Apr 2025 17:59:47 GMT
+            Server:
+              schema:
+                type: string
+              example: kong/3.9.0
+            X-Kong-Upstream-Latency:
+              schema:
+                type: integer
+              example: '19'
+            X-Kong-Proxy-Latency:
+              schema:
+                type: integer
+              example: '1'
+            Via:
+              schema:
+                type: integer
+              example: 1.1 kong/3.9.0
+            X-Kong-Request-Id:
+              schema:
+                type: integer
+              example: 06129a2c4dd1cd6658dbad706913904e
+          description: 200 - List Consolidations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        totalAmount:
+                          type: integer
+                        numberOfRecords:
+                          type: integer
+                        id:
+                          type: integer
+                        periodStart:
+                          type: string
+                          format: date-time
+                        periodEnd:
+                          type: string
+                          format: date-time
+                        startsAtId:
+                          type: integer
+                        endsAtId:
+                          type: integer
+                  metadata:
+                    type: object
+                    properties:
+                      page:
+                        type: integer
+                      perPage:
+                        type: integer
+                      total:
+                        type: integer
+                      lastPage:
+                        type: integer
