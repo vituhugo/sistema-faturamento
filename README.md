@@ -17,11 +17,11 @@
 - [🔥 Funcionalidades Principais](#-funcionalidades-principais)
 - [⚙️ Requisitos](#️-requisitos)
 - [🚀 Como Iniciar o Projeto](#-como-iniciar-o-projeto)
+- [🧠 Especificação API](#-especificação-api)
 - [🌍 Serviços Disponíveis](#-serviços-disponíveis)
 - [📈 Monitoramento](#-monitoramento)
-- [🧪 Testes de Carga](#-testes-de-carga)
 - [📅 Status do Projeto](#-status-do-projeto)
-- [📄 Licença](#-licença)
+- [🧪 Testes de Carga](#-testes-de-carga)
 
 ---
 
@@ -87,6 +87,12 @@ docker compose up -d
 
 ---
 
+## 🧠 Especificação API
+
+Consulte [api-spec.openapi.yaml](https://github.com/vituhugo/sistema-faturamento/blob/main/api-spec.openapi.yaml)
+
+---
+
 ## 🌍 Serviços Disponíveis
 
 | Serviço        | URL                    |
@@ -101,18 +107,10 @@ docker compose up -d
 
 ## 📈 Monitoramento
 
-- **Grafana** disponível em [http://localhost:3001](http://localhost:3001) para visualização de métricas e logs.
+- **Grafana** disponível em [http://localhost:3001](http://localhost:3001) para visualização de métricas e logs. Usuário: admin, Senha: foobar
 - Painéis customizáveis conforme necessidade.
 
----
-
-## 🧪 Testes de Carga
-
-- Testes de estresse e carga realizados com **Apache JMeter**.
-- Planos de teste disponíveis na pasta:
-  ```
-  __tests__/loadtests
-  ```
+> Para visualizar os dados, é necessário importar o arquivo de dashboard em: `.environment/observability/Grafana_Dashboard.json`  
 
 ---
 
@@ -131,13 +129,13 @@ Os testes de estresse e carga realizados com **Apache JMeter** e os resultados e
 
 ## 🚀 Criação de Lançamentos
 
-Foram realizadas **500 requisições por segundo**, durante **5 minutos**, ao endpoint de criação de lançamentos.
+Foram realizadas **500 conexões simultaneas**, durante **5 minutos**, ao endpoint de criação de lançamentos.
 
 ### 📊 Resultados
 
 | Label                  | Quantidade | Média (ms) | Mínimo (ms) | Máximo (ms) | Erros (%) | Throughput (req/seg) | KB Recebidos/seg | KB Enviados/seg |
 |-------------------------|------------|------------|-------------|-------------|-----------|----------------------|------------------|-----------------|
-| Criação de Lançamentos  | 325.969    | 455        | 38          | 993         | 0.0%      | 1079.024             | 408.314          | 273.544         |
+| Criação de Lançamentos  | 325.969    | 455        | 38          | 993         | 0.0%      | 1079.31              | 408.314          | 273.544         |
 
 ---
 

@@ -16,7 +16,7 @@ export class DailySummaryComponent implements OnInit {
   total = 0;
   page = 1;
   size = 20;
-  dictionary: Record<string, string> = { credit: 'Crédito', debit: 'Débito' }
+
   summary: PaginateResponse<DailySummary> = { items: [], metadata: { total: 0 }};
 
   constructor(private service: LaunchService) {}
@@ -26,7 +26,10 @@ export class DailySummaryComponent implements OnInit {
   }
 
   load() {
-    this.service.dailySummary(this.page, this.size).subscribe(res => this.summary = res);
+    this.service.dailySummary(this.page, this.size).subscribe(res => {
+      this.summary = res
+      this.total = res.metadata.total
+    });
   }
 
   changePage(delta: number) {
