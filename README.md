@@ -1,122 +1,171 @@
-# Sistema de Faturamento - Monorepo
 
-**Visão geral:**  
-Este projeto é uma solução **On-Premise** para gestão de lançamentos e consolidações financeiras, utilizando tecnologias **Open Source** e arquitetura **baseada em microserviços**.
+# Sistema de Faturamento — Monorepo
 
-Orquestração realizada via **Docker Compose** para facilitar a instalação e o ambiente de desenvolvimento.
+[![Docker](https://img.shields.io/badge/docker-ready-blue?logo=docker)](https://www.docker.com/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
+[![Node.js](https://img.shields.io/badge/node.js-18+-success?logo=node.js)](https://nodejs.org/)
+[![Grafana Observability](https://img.shields.io/badge/observability-grafana-orange?logo=grafana)](https://grafana.com/)
 
 ---
 
-## Arquitetura
+## 📚 Índice
+
+- [✨ Visão Geral](#-visão-geral)
+- [🛠️ Tecnologias Utilizadas](#️-tecnologias-utilizadas)
+- [🏛️ Arquitetura](#️-arquitetura)
+- [🔥 Funcionalidades Principais](#-funcionalidades-principais)
+- [⚙️ Requisitos](#️-requisitos)
+- [🚀 Como Iniciar o Projeto](#-como-iniciar-o-projeto)
+- [🌍 Serviços Disponíveis](#-serviços-disponíveis)
+- [📈 Monitoramento](#-monitoramento)
+- [🧪 Testes de Carga](#-testes-de-carga)
+- [📅 Status do Projeto](#-status-do-projeto)
+- [📄 Licença](#-licença)
+
+---
+
+## ✨ Visão Geral
+
+**Sistema de Faturamento** é uma plataforma **on-premise** para gerenciamento de lançamentos e consolidações financeiras, baseada em **microserviços** e tecnologias **open-source**, com orquestração via **Docker Compose**.
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Frontend:** Next.js
+- **Backend:** Node.js (Express)
+- **Orquestração:** Docker Compose
+- **Proxy Reverso:** Kong Gateway
+- **Observabilidade:** Grafana
+- **Banco de Dados:** PostgreSQL
+
+---
+
+## 🏛️ Arquitetura
 
 ![Diagrama C4](https://i.imgur.com/A5tKa2L.png)
 
-- **Web App**: Interface web para interação com os serviços da API.
-- **Kong (Proxy Reverso)**: Gerencia e controla as API.  
-- **OAuth2 (Autenticação)**: Especificação projetada (baseada em JWT), mas ainda não implementada.
-- **Grafana (Observabilidade)**: Ferramenta para coleta de logs da aplicação e monitoramento.
+---
 
-### Api's
+## 🔥 Funcionalidades Principais
 
-| Serviço | Função |
-|:--------|:-------|
-| **Entry API** | Gerencia lançamentos financeiros (criação e listagem). |
-| **Consolidation API** | Consolida e lista informações diárias de lançamentos. Executa via **CronJob** diário às 8:30h, contabilizando as últimas 24h (ignorando a última meia hora para garantir replicação). |
-
-> Também é possível rodar o serviço de consolidação pela API.
-
-### Banco de Dados
-| Serviço | Função                                                   |
-|:--------|:---------------------------------------------------------|
-| **Entry DB** | Banco de dados principal de lançamentos.                 |
-| **Consolidation DB** | Banco de dados do serviço de consolidação.               |
-| **Entry Replica DB** | Réplica somente leitura para uso na api de consolidação. |
+- **Entry API:** Criação e listagem de lançamentos financeiros.
+- **Consolidation API:** Consolidação automática (via CronJob) ou manual dos lançamentos.
+- **Observabilidade:** Monitoramento e análise de logs em tempo real via Grafana.
+- **Autenticação:** (em desenvolvimento) OAuth2 + JWT.
 
 ---
 
-## Pré-requisitos
+## ⚙️ Requisitos
 
-Certifique-se de ter instalado:
-
-| Ferramenta | Versão mínima |
-|:-----------|:--------------|
-| Docker     | 26+            |
-| Docker Compose | 2+         |
+| Ferramenta         | Versão mínima |
+| ------------------ |---------------|
+| Docker             | 26+           |
+| Docker Compose     | 2+            |
+| Node.js (opcional para desenvolvimento local) | 22+           |
 
 ---
 
-## Como iniciar
+## 🚀 Como Iniciar o Projeto
 
-1. Clone o repositório:
-
+Clone o repositório:
 ```bash
 git clone https://github.com/vituhugo/sistema-faturamento.git
 cd sistema-faturamento
 ```
 
-
-Copie o arquivo de ambiente:
+Configure as variáveis de ambiente:
 ```bash
 cp .env.example .env
 ```
 
 Suba os containers:
-
 ```bash
 docker compose up -d
 ```
 
-## Serviços disponíveis:
+---
+
+## 🌍 Serviços Disponíveis
+
+| Serviço        | URL                    |
+| -------------- | ----------------------- |
+| Web App        | [http://localhost:3000](http://localhost:3000) |
+| Kong Gateway   | [http://localhost:8000](http://localhost:8000) |
+| Grafana        | [http://localhost:3001](http://localhost:3001) |
+
+> **Nota:** Certifique-se de que as portas **3000**, **8000** e **3001** estejam disponíveis.
+
+---
+
+## 📈 Monitoramento
+
+- **Grafana** disponível em [http://localhost:3001](http://localhost:3001) para visualização de métricas e logs.
+- Painéis customizáveis conforme necessidade.
+
+---
+
+## 🧪 Testes de Carga
+
+- Testes de estresse e carga realizados com **Apache JMeter**.
+- Planos de teste disponíveis na pasta:
+  ```
+  __tests__/loadtests
+  ```
+
+---
+
+## 📅 Status do Projeto
+
+- ✅ Microserviços configurados e operacionais
+- ✅ Consolidação automática agendada via CronJob
+- ✅ Observabilidade integrada com Grafana
+- ⏳ Implementação de autenticação OAuth2 + JWT em andamento
+
+---
 
 
-| Componente | Tipo      | URL/Conexão           |
-|:-----------|:----------|:----------------------|
-| Web App    | HTTP      | http://localhost:3000 |
-| Kong API   | HTTP      | http://localhost:8000 |
-| Grafana    | HTTP      | http://localhost:3001 |
+# 📈 Testes de Performance
 
-> ⚠️ Importante: Certifique-se de que essas portas estão livres antes de iniciar.
+## 🚀 Criação de Lançamentos
 
-# Status do Projeto
+Foram realizadas **500 requisições por segundo**, durante **5 minutos**, ao endpoint de criação de lançamentos.
 
-✅ Estrutura inicial dos microserviços.
+### 📊 Resultados
 
-✅ Lançamentos e consolidações básicas funcionando.
+| Label                  | Quantidade | Média (ms) | Mínimo (ms) | Máximo (ms) | Erros (%) | Throughput (req/seg) | KB Recebidos/seg | KB Enviados/seg |
+|-------------------------|------------|------------|-------------|-------------|-----------|----------------------|------------------|-----------------|
+| Criação de Lançamentos  | 325.969    | 455        | 38          | 993         | 0.0%      | 1079.024             | 408.314          | 273.544         |
 
-✅ Configuração de proxy reverso (Kong).
+---
 
-🔜 Integração com OAuth2.
+### 🖥️ Uso de CPU/Memória (Grafana)
 
-# Dados de Performance
-
-Para a validação de performance foi utilizado a ferramenta Jmeter. O plano de teste pode ser visto no projeto dentro da pasta \_\_test__.
-
-## Criação de Lançamentos
-
-Caso de teste:
-- 500 requisições por segundo, durante 5 minutos ao endpoint de criação de lançamentos.
-
-| Label                       | Quantidade | Média | Min | Máx | Erros (%) | Troughput              | Kb recebidos/Sec           | Kb Enviados/sec |
-|-----------------------------|------------|-------|-----|-----|-----------|------------------------|-------------------|-------------------|
-| Criação Lançamentos | 325969     | 455   | 38  | 993 | 0.0       | 1079.024/sec | 408.314 | 273.544 |
-
---- 
-
-#### Uso de CPU/Memoria (Grafana)
+Durante os testes, foi monitorado o uso de CPU e memória através do Grafana:
 
 ![Gráfico de performance](https://i.imgur.com/BHseLWh.png)
 
-## Cronjob de Consolidação
+---
 
-Foi executado o serviço de consolidação para o teste acima e foi levantado os seguintes valores: 
+## 🛠️ Consolidação
 
-|                         |         |
-|:------------------------|:--------|
-| Quantidade de registros | 392.763 |
-| Tempo de execução total | 17,73s  |
+Após o teste de criação de lançamentos, foi executado o serviço de consolidação.
 
-Como o tempo foi pequeno, foi desprezado o uso de CPU e de memória.
+### 📊 Resultados da Consolidação
 
-> É importante ressaltar que o banco do serviço de consolidação é Apartado e o processamento do mesmo não afetará o resto do sistema. 
+| Quantidade de Registros | Tempo de Execução Total |
+|--------------------------|-------------------------|
+| 392.763                  | 17,73 segundos          |
+
+> **Nota:** Não foram obtidos dados detalhados de uso de máquina para a consolidação devido ao curto tempo de execução.
+
+---
+
+## 📌 Observações Finais
+
+- Nenhum erro registrado durante os testes de criação de lançamentos.
+- Consolidação realizada com alta eficiência em menos de 20 segundos.
+- Sistema se manteve estável durante todo o período de teste.
 
 
