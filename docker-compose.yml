@@ -1,0 +1,47 @@
+include:
+  - .environment/database/docker-compose.yml
+  - .environment/gateway/docker-compose.yml
+services:
+  entry-api:
+    build:
+      context: ./
+      dockerfile: ./apps/entry-api/Dockerfile
+    env_file:
+      - ./.env
+    ports:
+      - '3000:3000'
+    depends_on:
+      - pg_entry_primary
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 256M
+  web-app:
+    build:
+      context: ./apps/web-app
+    env_file:
+      - ./.env
+    ports:
+      - '8080:80'
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 50M
+  consolidation-api:
+    build:
+      context: ./
+      dockerfile: ./apps/consolidation-api/Dockerfile
+    ports:
+      - '3001:3000'
+    env_file:
+      - ./.env
+    depends_on:
+      - pg_entry_primary
+      - pg_consolidate
+    deploy:
+      resources:
+        limits:
+          cpus: '1.00'
+          memory: 256M

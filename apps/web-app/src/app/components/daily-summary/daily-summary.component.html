@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <h3>Resumo Diário</h3>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Período</th>
+        <th>Quantidade de Registros</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let day of summary.items">
+        <td>
+          {{ day.periodStart | date: 'dd/MM/YYYY HH:mm' }}
+          {{ day.periodStart ? 'até' : 'tudo até' }}
+          {{ day.periodEnd | date: 'dd/MM/YYYY HH:mm' }}
+        </td>
+        <td>{{ day.numberOfRecords }}</td>
+        <td>{{ day.totalAmount | currency: 'BRL' }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <nav>
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="page === 1">
+        <button class="page-link" (click)="changePage(-1)">Anterior</button>
+      </li>
+      <li class="page-item disabled">
+        <span class="page-link">{{ page }}</span>
+      </li>
+      <li class="page-item" [class.disabled]="page * size >= total">
+        <button class="page-link" (click)="changePage(1)">Próximo</button>
+      </li>
+    </ul>
+  </nav>
+</div>

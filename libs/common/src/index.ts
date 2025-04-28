@@ -1,0 +1,5 @@
+export * from './interfaces/paginate.interface'
+export * from './interfaces/paginate-parameters.interface'
+export * from './config/db-consolidate.config'
+export * from './config/db-entry.config'
+export * from './config/db-entry-replica.config'
