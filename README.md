@@ -2,7 +2,6 @@
 # Sistema de Faturamento — Monorepo
 
 [![Docker](https://img.shields.io/badge/docker-ready-blue?logo=docker)](https://www.docker.com/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
 [![Node.js](https://img.shields.io/badge/node.js-18+-success?logo=node.js)](https://nodejs.org/)
 [![Grafana Observability](https://img.shields.io/badge/observability-grafana-orange?logo=grafana)](https://grafana.com/)
@@ -33,8 +32,8 @@
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **Frontend:** Next.js
-- **Backend:** Node.js (Express)
+- **Frontend:** Angular.js
+- **Backend:** Node.js (Nest)
 - **Orquestração:** Docker Compose
 - **Proxy Reverso:** Kong Gateway
 - **Observabilidade:** Grafana
@@ -44,25 +43,25 @@
 
 ## 🏛️ Arquitetura
 
-![Diagrama C4](https://i.imgur.com/A5tKa2L.png)
+![Diagrama C4](https://i.imgur.com/SzdGLLi.png)
 
 ---
 
 ## 🔥 Funcionalidades Principais
 
-- **Entry API:** Criação e listagem de lançamentos financeiros.
-- **Consolidation API:** Consolidação automática (via CronJob) ou manual dos lançamentos.
-- **Observabilidade:** Monitoramento e análise de logs em tempo real via Grafana.
-- **Autenticação:** (em desenvolvimento) OAuth2 + JWT.
+- **Entry Domain:** API de Criação e listagem de lançamentos financeiros.
+- **Consolidation Domain:** Api de dados de Consolidação e Cronjob de criação da Consolidação.
+- **Grafana:** Monitoramento e análise de logs em tempo real.
+- **Autenticação:** OAuth2 + JWT.
 
 ---
 
 ## ⚙️ Requisitos
 
-| Ferramenta         | Versão mínima |
-| ------------------ |---------------|
-| Docker             | 26+           |
-| Docker Compose     | 2+            |
+| Nome                                          | Versão mínima |
+|-----------------------------------------------|---------------|
+| Docker                                        | 26+           |
+| Docker Compose                                | 2+            |
 | Node.js (opcional para desenvolvimento local) | 22+           |
 
 ---
@@ -107,7 +106,9 @@ Consulte [api-spec.openapi.yaml](https://github.com/vituhugo/sistema-faturamento
 
 ## 📈 Monitoramento
 
-- **Grafana** disponível em [http://localhost:3001](http://localhost:3001) para visualização de métricas e logs. Usuário: admin, Senha: foobar
+- **Grafana** disponível em [http://localhost:3001](http://localhost:3001) para visualização de métricas e logs. 
+  - Usuário: admin;
+  - Senha: foobar;
 - Painéis customizáveis conforme necessidade.
 
 > Para visualizar os dados, é necessário importar o arquivo de dashboard em: `.environment/observability/Grafana_Dashboard.json`  
@@ -119,7 +120,7 @@ Consulte [api-spec.openapi.yaml](https://github.com/vituhugo/sistema-faturamento
 - ✅ Microserviços configurados e operacionais
 - ✅ Consolidação automática agendada via CronJob
 - ✅ Observabilidade integrada com Grafana
-- ⏳ Implementação de autenticação OAuth2 + JWT em andamento
+- ❗️ Implementação de autenticação OAuth2 não foi contemplata no desenvolvimento.
 
 ---
 
@@ -166,5 +167,6 @@ Após o teste de criação de lançamentos, foi executado o serviço de consolid
 - Nenhum erro registrado durante os testes de criação de lançamentos.
 - Consolidação realizada com alta eficiência em menos de 20 segundos.
 - Sistema se manteve estável durante todo o período de teste.
+- Baixo custo de RAM, mesmo durante os picos.
 
 

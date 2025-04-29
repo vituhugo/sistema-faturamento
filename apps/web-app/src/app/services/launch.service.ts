@@ -27,6 +27,12 @@ export interface PaginateResponse<T> {
     total: number;
   }
 }
+export interface ListOptions {
+  date: Date;
+  type: 'credit' | 'debit';
+  orderBy: string;
+  orderType: 'ASC' | 'DESC';
+}
 
 @Injectable({ providedIn: 'root' })
 export class LaunchService {
@@ -39,11 +45,13 @@ export class LaunchService {
     return this.http.post<Launch>(this.entryBaseUrl, launch);
   }
 
-  list(page: number, perPage: number, date?: Date): Observable<PaginateResponse<Launch>> {
+  list(page: number, perPage: number, options: ListOptions): Observable<PaginateResponse<Launch>> {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('perPage', perPage.toString())
-      .set('date', (date ?? new Date()).toISOString())
+      .set('filters[date]', (options.date ?? new Date()).toISOString())
+      .set(`order[${options.orderBy}]`, options.orderType)
+    if (options.type) params.set('filters.type', options.type);
     return this.http.get<PaginateResponse<Launch>>(this.entryBaseUrl, { params });
   }
 
@@ -51,6 +59,6 @@ export class LaunchService {
     const params = new HttpParams()
       .set('page', page.toString())
       .set('perPage', perPage.toString())
-    return this.http.get<PaginateResponse<DailySummary>>(this.consolidationBaseUrl);
+    return this.http.get<PaginateResponse<DailySummary>>(this.consolidationBaseUrl, { params });
   }
 }

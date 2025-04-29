@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LaunchService, Launch } from '../../services/launch.service';
-import {CurrencyPipe, NgForOf, DatePipe } from '@angular/common';
+import {CurrencyPipe, NgForOf, DatePipe, formatDate, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
 @Component({
@@ -11,6 +11,7 @@ import {FormsModule} from '@angular/forms';
     FormsModule,
     CurrencyPipe,
     DatePipe,
+    NgIf,
   ],
   styleUrls: ['./launch-list.component.css']
 })
@@ -19,7 +20,13 @@ export class LaunchListComponent implements OnInit {
   total = 0;
   page = 1;
   size = 20;
-  filter = { date: new Date() };
+
+  filter = {
+    date: formatDate(new Date(), 'YYYY-MM-dd', 'en-US'),
+    type: '',
+    orderBy: 'date',
+    orderType: 'DESC',
+  };
   dictionary: Record<string, string> = { credit: 'Crédito', debit: 'Débito' }
 
   constructor(private service: LaunchService) {}
@@ -29,7 +36,12 @@ export class LaunchListComponent implements OnInit {
   }
 
   load() {
-    this.service.list(this.page, this.size).subscribe(resp => {
+    this.service.list(this.page, this.size, {
+      date: new Date(this.filter.date),
+      type: this.filter.type as any,
+      orderBy: this.filter.orderBy,
+      orderType: this.filter.orderType as any,
+    }).subscribe(resp => {
       this.items = resp.items;
       this.total = resp.metadata.total;
     });
@@ -41,8 +53,12 @@ export class LaunchListComponent implements OnInit {
   }
 
   applyFilter() {
-    console.log('applyFilter', this.filter.date);
-    this.service.list(1, this.size, new Date(this.filter.date)).subscribe(resp => {
+    this.service.list(1, this.size, {
+      date: new Date(this.filter.date),
+      type: this.filter.type as any,
+      orderBy: this.filter.orderBy,
+      orderType: this.filter.orderType as any,
+    }).subscribe(resp => {
       this.items = resp.items;
       this.total = resp.metadata.total;
     });
