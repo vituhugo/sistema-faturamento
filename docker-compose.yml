@@ -2,6 +2,7 @@ include:
   - .environment/database/docker-compose.yml
   - .environment/observability/docker-compose.yml
   - .environment/gateway/docker-compose.yml
+  - .environment/test/docker-compose.yml
 services:
   entry-api:
     build:

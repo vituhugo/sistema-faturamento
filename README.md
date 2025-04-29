@@ -126,7 +126,19 @@ Consulte [api-spec.openapi.yaml](https://github.com/vituhugo/sistema-faturamento
 
 
 # 🧪 Testes de Carga
-Os testes de estresse e carga realizados com **Apache JMeter** e os resultados estão logo à baixo.
+Os testes de estresse e carga realizados com **Apache JMeter**.
+
+Caso queira rodar um dos testes de estress você pode faze-lo executando:
+
+```bash
+$ docker compose up loadtest
+```
+
+Além do resultado no terminal, esse comando também gera um relatório. Ele pode ser consultado no seguinte caminho:
+
+`.environment/test/jmeter-server/data/relatorio/index.html`
+ 
+Outros testes foram feitos e podem ser consultados logo a baixo.
 
 ## 🚀 Criação de Lançamentos
 
